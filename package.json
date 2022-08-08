@@ -1,0 +1,47 @@
+{
+  "name": "swego",
+  "version": "1.0.0",
+  "description": "Test your programming knowledge",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server/server.js --mode production",
+    "build": "webpack --mode production",
+    "dev": "concurrently \"webpack-dev-server --mode development --open --hot\" \"nodemon server/server.js --mode development\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Dragonite-51/Swego.git"
+  },
+  "author": "Elliott Burr, Ryan Huie, Steven Yuan, Mark Yermolov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Dragonite-51/Swego/issues"
+  },
+  "homepage": "https://github.com/Team-Dragonite-51/Swego#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "concurrently": "^7.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "nodemon": "^2.0.19",
+    "path": "^0.12.7",
+    "postgres": "^3.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "sass-loader": "^13.0.2",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2"
+  }
+}
