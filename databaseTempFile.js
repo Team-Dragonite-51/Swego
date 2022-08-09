@@ -17,7 +17,7 @@ VALUES ('what is team name', 1, 'charzard', 'dragonite', 'mewtwo', 'pikachu', 'd
 
 /*
 CREATE TABLE a_questions(
-    algo_question_id    SERIAL PRIMARY KEY,
+    question_id         SERIAL PRIMARY KEY,         //changed to question_id to keep consistent
     question            VARCHAR NOT NULL,
     test                VARCHAR NOT NULL
 )
@@ -27,7 +27,6 @@ CREATE TABLE a_questions(
 /*
 CREATE TYPE choices AS ENUM('multi', 'algo')
 CREATE TABLE completed(
-
     user_id                 SERIAL PRIMARY KEY,
     completed_question_id   INT NOT NULL,
     type                    choices NOT NULL
