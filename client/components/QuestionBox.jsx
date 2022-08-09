@@ -1,9 +1,9 @@
 import React from 'react';
 
-const QuestionBox = (props) => {
+const QuestionBox = ({question}) => {
     return(
         <div id='question-box'>
-            <h1>{props.question}</h1>
+            <h1>{question.question}</h1>
         </div>
     )
 };

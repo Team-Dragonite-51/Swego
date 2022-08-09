@@ -20,7 +20,10 @@
   },
   "homepage": "https://github.com/Team-Dragonite-51/Swego#readme",
   "dependencies": {
+    "async_hooks": "^1.0.0",
+    "async-hooks": "^1.3.1",
     "body-parser": "^1.20.0",
+    "browserify-zlib": "^0.2.0",
     "concurrently": "^7.3.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
@@ -28,6 +31,7 @@
     "nodemon": "^2.0.19",
     "path": "^0.12.7",
     "postgres": "^3.2.4",
+    "querystring-es3": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0"
