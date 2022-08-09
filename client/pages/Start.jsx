@@ -1,27 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Start = ({ question, setQuestion }) => {
+const Start = ({ question, setQuestion, getMCQuestion }) => {
 
     // when user clicks start, fetch first question from the db
     const handleStart = (e) => {
-        async function fetchData () {
-            try{
-                // await fetch from db
-                let res = await fetch('/getMCQuestion', {
-                    method: 'GET',
-                    headers: {},
-                })
-                // await json of res
-                const data = await res.json();
-                return data;
-            }
-            catch(err){
-                console.log(err)
-            }
-        }
+        // // Previous functionality to get a question
+        // async function fetchData () {
+        //     try{
+        //         // await fetch from db
+        //         let res = await fetch('/getMCQuestion', {
+        //             method: 'GET',
+        //             headers: {},
+        //         })
+        //         // await json of res
+        //         const data = await res.json();
+        //         return data;
+        //     }
+        //     catch(err){
+        //         console.log(err)
+        //     }
+        // }
+
+        // new function passed down as a prop from App to get a question
+        getMCQuestion(0).then(data => setQuestion(data));
+
+        // OLD
         // update question to be fetched question
-        fetchData().then(data => setQuestion(data))
+        // fetchData().then(data => setQuestion(data))
     }
 
     // // use effect to update the question from the db on mount

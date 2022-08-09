@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = (props) => {
+const SignUp = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    function handleLogin(event) {
+
+    function handleSignup(event) {
         event.preventDefault();
         const body = { username, password };
-        console.log("LOGIN:", body);
-        fetch('/auth/login', {
+        console.log("SIGNUP:", body);
+        fetch('/auth/signup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: (JSON.stringify(body))
-        }).then(data => data.json())
-        .then(data => {
-            if (data === 11) {
-                
-                navigate('/start')
-            }
-            console.log(data);
-        })
+        // }).then(data => data.json())
+        // .then(data => {
+        //     if (data === 11) {
+        //         //
+        //         // navigate('/start')
+        //     }
+        //     console.log(data);
+        });
     }
+
 
     return(
         <div>
@@ -43,6 +45,7 @@ const Login = (props) => {
             </form>
         </div>
     )
-};
 
-export default Login;
+}
+
+export default SignUp;
