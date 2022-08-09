@@ -19,7 +19,7 @@ const MultipleChoice = ({ score, setScore, stage, setStage, question, setQuestio
 
     return(
         <div id='mc-question-container'>
-            {/* <h1>Question: {stage}</h1>
+            <h1>Question: {stage}</h1>
             <QuestionBox question={question}/>
             <div id='mc-question-answers'>
                 <button onClick={handleMCAnswer}>{question.answerA}</button>
@@ -29,7 +29,7 @@ const MultipleChoice = ({ score, setScore, stage, setStage, question, setQuestio
             <div/>
             <button onClick={handleSubmit}>Submit Answer</button>
             <Link to={route}><button>Continue</button></Link>
-        </div> */}
+        </div>
         </div>
     )
 };
