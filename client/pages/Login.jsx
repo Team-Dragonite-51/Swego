@@ -7,7 +7,7 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    function handleSubmit(event) {
+    function handleLogin(event) {
         event.preventDefault();
         const body = { username, password };
         console.log(body);
@@ -27,9 +27,29 @@ const Login = (props) => {
         })
     }
 
+    function handleSignup(event) {
+        event.preventDefault();
+        const body = { username, password };
+        console.log(body);
+        fetch('/auth/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: (JSON.stringify(body))
+        }).then(data => data.json())
+        .then(data => {
+            if (data === 11) {
+                //
+                // navigate('/start')
+            }
+            console.log(data);
+        })
+    }
+
     return(
         <div>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <label>
                     Username:
                     <input type="text" name="username" onChange={event => setUsername(event.target.value)} value={username}/>
@@ -38,7 +58,8 @@ const Login = (props) => {
                     Password:
                     <input type="text" name="password" onChange={event => setPassword(event.target.value)} value={password}/>
                 </label>
-                <input type="submit" value="Submit"/>
+                <button onClick={handleLogin}>Login</button>
+                <button onClick={handleSignup}>Signup</button>
             </form>
         </div>
     )
