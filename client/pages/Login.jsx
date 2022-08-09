@@ -10,41 +10,41 @@ const Login = (props) => {
     function handleLogin(event) {
         event.preventDefault();
         const body = { username, password };
-        console.log(body);
-        fetch('/auth/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: (JSON.stringify(body))
-        }).then(data => data.json())
-        .then(data => {
-            if (data === 11) {
-                //
-                // navigate('/start')
-            }
-            console.log(data);
-        })
+        console.log("LOGIN:", body);
+        // fetch('/auth/login', {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json'
+        //     },
+        //     body: (JSON.stringify(body))
+        // }).then(data => data.json())
+        // .then(data => {
+        //     if (data === 11) {
+        //         //
+        //         // navigate('/start')
+        //     }
+        //     console.log(data);
+        // })
     }
 
     function handleSignup(event) {
         event.preventDefault();
         const body = { username, password };
-        console.log(body);
-        fetch('/auth/signup', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: (JSON.stringify(body))
-        }).then(data => data.json())
-        .then(data => {
-            if (data === 11) {
-                //
-                // navigate('/start')
-            }
-            console.log(data);
-        })
+        console.log("SIGNUP:", body);
+        // fetch('/auth/signup', {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json'
+        //     },
+        //     body: (JSON.stringify(body))
+        // }).then(data => data.json())
+        // .then(data => {
+        //     if (data === 11) {
+        //         //
+        //         // navigate('/start')
+        //     }
+        //     console.log(data);
+        // })
     }
 
     return(
