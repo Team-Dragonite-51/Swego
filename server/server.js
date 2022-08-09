@@ -8,7 +8,7 @@ const PORT = 3000
 app.use(express.json()) // built in middleware parsing incoming JSON requests and puts parsed data in req.body
 app.use(cors());
 
-app.use(express.static(path.resolve(__dirname, "../dist/bundle.js")))
+// app.use(express.static(path.resolve(__dirname, "../dist/bundle.js")))
 
 
 app.get('/test', (req, res) => {
