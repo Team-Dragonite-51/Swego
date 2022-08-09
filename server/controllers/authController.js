@@ -1,4 +1,4 @@
-const db = require('./model');
+const db = require('../models/databaseModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -7,8 +7,8 @@ const saltRounds = 10;
 const authController = {};
 
 authController.activateJWT = async (req, res, next) => {
-    let username = res.locals.tokenUsername;
-    let hash = res.locals.hash;
+    // let username = res.locals.tokenUsername;
+    // let hash = res.locals.hash;
 
     jwt.sign({
         data: 'hello, I am a token',
@@ -38,7 +38,7 @@ authController.signup = async (req, res, next) => {
 
     bcrypt.hash(password, saltRounds, (err, hash) => {
         if(err) return next({message: { err: 'There was an error with the signup request'}});
-        db.query('INSERT INTO USERS (username, password) VALUES ($1, $2)', [username, hash])
+        db.query('INSERT INTO users (username, password) VALUES ($1, $2)', [username, hash])
             .then(() => {
                 res.locals.tokenUsername = username;
                 res.locals.tokenHash = hash;
@@ -50,7 +50,7 @@ authController.signup = async (req, res, next) => {
 
 authController.login = async (req, res, next) => {
     const { username, password } = await req.body;
-    let data = await db.query('SELECT * FROM USERS WHERE username = $1', [username]);
+    let data = await db.query('SELECT * FROM users WHERE username = $1', [username]);
     // await console.log(data);
     let userInfo = await data.rows[0];
     await bcrypt.compare(password, userInfo.password, (err, response) => {
