@@ -17,7 +17,7 @@ VALUES ('what is team name', 1, 'charzard', 'dragonite', 'mewtwo', 'pikachu', 'd
 
 /*
 CREATE TABLE a_questions(
-    algo_question_id    SERIAL PRIMARY KEY,      ///change to serial
+    algo_question_id    SERIAL PRIMARY KEY,
     question            VARCHAR NOT NULL,
     test                VARCHAR NOT NULL
 )
@@ -27,7 +27,8 @@ CREATE TABLE a_questions(
 /*
 CREATE TYPE choices AS ENUM('multi', 'algo')
 CREATE TABLE completed(
-    user_id                 INT NOT NULL,
+
+    user_id                 SERIAL PRIMARY KEY,
     completed_question_id   INT NOT NULL,
     type                    choices NOT NULL
 )
@@ -38,7 +39,7 @@ VALUES (1, 1, 'algo')
 
 /*
 CREATE TABLE users(
-    user_id         SERIAL PRIMARY KEY,         //changed to serial
+    user_id         SERIAL PRIMARY KEY,
     username        VARCHAR NOT NULL,
     password        VARCHAR NOT NULL
 )
@@ -51,5 +52,4 @@ CREATE TABLE score(
     points              INT NOT NULL,
     current_question    INT NOT NULL
 )
-serial primary key
 */
