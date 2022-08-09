@@ -20,8 +20,10 @@
   },
   "homepage": "https://github.com/Team-Dragonite-51/Swego#readme",
   "dependencies": {
+    "@monaco-editor/react": "^4.4.5",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
+    "browserify-zlib": "^0.2.0",
     "concurrently": "^7.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
@@ -29,6 +31,7 @@
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
+    "monaco-editor": "^0.34.0",
     "nodemon": "^2.0.19",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
@@ -37,8 +40,10 @@
     "pg": "^8.7.3",
     "pg-promise": "^10.11.1",
     "postgres": "^3.2.4",
+    "querystring-es3": "^0.2.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
