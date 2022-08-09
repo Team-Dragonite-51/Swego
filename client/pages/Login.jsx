@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import SignUp from './SignUp';
 
 const Login = (props) => {
 
@@ -39,7 +41,7 @@ const Login = (props) => {
                     <input type="password" name="password" onChange={event => setPassword(event.target.value)} value={password}/>
                 </label>
                 <button onClick={handleLogin}>Login</button>
-                <button onClick={handleSignup}>Signup</button>
+                <Link to={SignUp}><button>Signup</button></Link>
             </form>
         </div>
     )
