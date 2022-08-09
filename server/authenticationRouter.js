@@ -1,12 +1,18 @@
 const express = require('express');
-const bcryptController = require('./bcryptController');
+const authController = require('./authController');
+
+const passport = require('passport');
+const passportService = require('./auth/auth');
+
+const requireAuth = passport.authenticate('jwt', {session: false});
+
 const router = express.Router();
 
-router.post('/signup', bcryptController.signup, (req, res) => {
-    return res.status(200).json(res.locals.hash);
+router.post('/signup', authController.signup, authController.activateJWT, (req, res) => {
+    return res.status(200).json(res.locals.officialToken);
 })
 
-router.post('/login', bcryptController.login, (req, res) => {
+router.post('/login', authController.login, authController.activateJWT, (req, res) => {
     return res.status(200).json(res.locals.elevenIfTrue);
 })
 
