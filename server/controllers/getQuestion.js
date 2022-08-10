@@ -7,11 +7,13 @@ const getQuestion = {};
 getQuestion.nextQ = async (req, res, next) => {
 	//need to know the user_id
 	//need to know the current question
+	await console.log('in the nextQ middleware function')
 	let user_id = 1;
-	let current_question = 1;
+	let current_question = 6;
 
 	//check if the next question need to be an algo or multi type of question
 	let curr_type;
+	//1-2 = easy multi choice 3 easy algo 4-6 is medium mc, 7 medium algo, 8-9 hard mc. 10 hard algo. 
 	if (current_question>5) {
 		curr_type = 'multi';
 	}
@@ -56,7 +58,7 @@ getQuestion.nextQ = async (req, res, next) => {
 		console.log('questionList', questionList)
 		console.log('completedQuestions',completedQuestions)
 		res.locals.question = questionPicker(completedQuestions, questionList);
-
+		console.log('res.locals.question', res.locals.question)
 		return next();
 }
 
@@ -64,18 +66,23 @@ getQuestion.nextQ = async (req, res, next) => {
 function questionPicker(completedQuestions, questionList){
 	// compare completedQuestions at index at key completed_question_id
 	//with questionList at index at key question_id
-
 	
 	const completedIDs = {}
 	for (const question of completedQuestions){
 		completedIDs[question.completed_question_id] = true;
 	}
+	console.log('completedIDs', completedIDs)
 	const selections = []
 	for (const question of questionList){
-		if (!completedIDs[algo_question_id]) selections.push(algo_question_id)
+		if (!completedIDs[question.question_id]) selections.push(question)
 	}
+	console.log('selections', selections)
 
-	return 1;
+	let index = Math.floor(Math.random()*selections.length)
+	console.log('index', index)
+
+	if (!selections[index]) return 'We are out of questions'
+	return selections[index];
 }
 
 

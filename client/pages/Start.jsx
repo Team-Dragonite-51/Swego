@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom'
 
-const Start = ({ question, setQuestion, getMCQuestion }) => {
-
+const Start = ({ question, setQuestion, getQuestion }) => {
+    let navigate = useNavigate();
     // when user clicks start, fetch first question from the db
     const handleStart = (e) => {
         // // Previous functionality to get a question
@@ -23,11 +24,17 @@ const Start = ({ question, setQuestion, getMCQuestion }) => {
         // }
 
         // new function passed down as a prop from App to get a question
-        getMCQuestion(0).then(data => setQuestion(data));
-
+        getQuestion(0).then(data => {
+            console.log("data in start:", data);
+            setQuestion(data)
+        }).then(() => navigate('/question-mc'));
         // OLD
         // update question to be fetched question
         // fetchData().then(data => setQuestion(data))
+    }
+
+    const testFunc = () => {
+        fetch('http://localhost:3000/test')
     }
 
     // // use effect to update the question from the db on mount
@@ -51,7 +58,10 @@ const Start = ({ question, setQuestion, getMCQuestion }) => {
         <div id='start-page'>
             <h1 id='start-title'>Welcome to SWEGO</h1>
             <div>
-                <Link to='/question-mc'><button onClick={handleStart}>Start New Game</button></Link>
+                {/* <Link to='/question-mc'> */}
+                    <button onClick={handleStart}>Start New Game</button>
+                    {/* </Link> */}
+                    <button onClick={testFunc}>TEST</button>
             </div>
         </div>
     )

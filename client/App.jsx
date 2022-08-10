@@ -18,15 +18,16 @@ function App() {
     const [stage, setStage] = useState(1);
     const [question, setQuestion] = useState('TEST QUESTION');
 
-    async function getMCQuestion (stage) {
+    async function getQuestion (stage) {
         try{
             // await fetch from db
-            let res = await fetch('/getMCQuestion', {
+            let res = await fetch('http://localhost:3000/getQuestion', {
                 method: 'GET',
                 headers: {stage},
             })
             // await json of res
             const data = await res.json();
+            console.log("data in getQuestion", data);
             return data;
         }
         catch(err){
@@ -39,10 +40,10 @@ function App() {
             APP Page
             <Routes>
                 <Route path='/login' element={<Login/>}></Route>
-                <Route path='/start' element={<Start question={question} setQuestion={setQuestion} getMCQuestion={getMCQuestion}/>}></Route>
+                <Route path='/start' element={<Start question={question} setQuestion={setQuestion} getQuestion={getQuestion}/>}></Route>
                 <Route path='/question-mc' element={<MultipleChoice score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion}/>}></Route>
                 <Route path='/question-a' element={<Algo score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion}/>}></Route>
-                <Route path='/opt-out' element={<OptOut score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} getMCQuestion={getMCQuestion}/>}></Route>
+                <Route path='/opt-out' element={<OptOut score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} getQuestion={getQuestion}/>}></Route>
                 <Route path='/game-over' element={<GameOver score={score} setScore={setScore} stage={stage} setStage={setStage}/>}></Route>
                 <Route path='/signup' element={<SignUp/>}></Route>
             </Routes>

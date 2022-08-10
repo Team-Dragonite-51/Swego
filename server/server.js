@@ -7,15 +7,21 @@ const PORT = 3000
 app.use(express.json()) // built in middleware parsing incoming JSON requests and puts parsed data in req.body
 app.use(cors());
 
+const getQuestion = require ('./controllers/getQuestion');
 const authR = require('./routers/authenticationRouter');
 
 app.use(express.static(path.resolve(__dirname, "../dist/bundle.js")))
 
 
-app.get('/test', (req, res) => {
+app.get('/getQuestion', getQuestion.nextQ, (req, res) => {
+    console.log("got into getQuestion");
     res.locals.test = "SWEGO";
-    res.status(200).json(res.locals.test);
+    res.status(200).json(res.locals.question);
 })
+// app.get('/getQuestion', getQuestion.nextQ, (req, res) => {
+//     res.locals.test = "SWEGO";
+//     res.status(200).json(res.locals.question);
+// })
 
 app.use('/auth', authR);
 

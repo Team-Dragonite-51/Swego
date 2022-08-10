@@ -1,8 +1,8 @@
 const express = require('express');
-const authController = require('./authController');
+const authController = require('../controllers/authController');
 
 const passport = require('passport');
-const passportService = require('./auth/auth');
+// const passportService = require('./auth/auth');
 
 const requireAuth = passport.authenticate('jwt', {session: false});
 
