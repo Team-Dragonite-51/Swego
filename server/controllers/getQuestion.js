@@ -6,10 +6,13 @@ const getQuestion = {};
 //middleware function to query db for next question
 getQuestion.nextQ = async (req, res, next) => {
 	//need to know the user_id
-	// let user_id = 2;
-	// let nextQuestion = false;
-	const {user_id, nextQuestion} = req.headers
-	console.log('userID', user_id, nextQuestion)
+	// let user_id = 4;
+	// let nextquestion = true;
+	const user_id = req.headers.user_id;
+	const nextquestion = req.headers.nextquestion
+	// console.log('REQ.HEADERS', req.headers)
+
+	console.log('userID', user_id, nextquestion)
 
 	//query to get current question
 	const getCurrQ = `
@@ -26,37 +29,45 @@ getQuestion.nextQ = async (req, res, next) => {
 		})
 	
 	//checking if this is a first time user
-	if (scoreTable[0]){
-		for (let i=0; i<scoreTable.length; i++){
-			console.log(scoreTable[i])
-			if (scoreTable[i]['user_id']===user_id){
-				userGameInfo = scoreTable[i];
-				i = scoreTable.length;
-			}
-		}
-	}
+	console.log('scoreTable',scoreTable)
+	// if (scoreTable[0]){
+	// 	for (let i=0; i<scoreTable.length; i++){
+	// 		console.log(scoreTable[i])
+	// 		if (scoreTable[i]['user_id']===user_id){
+	// 			userGameInfo = scoreTable[i];
+	// 			i = scoreTable.length;
+	// 		}
+	// 	}
+	// }
+	userGameInfo = scoreTable[0]
 	//if first time, current_question = 1
-	// console.log('userGameInfo', userGameInfo)
+	console.log('userGameInfo', userGameInfo)
 	if (!userGameInfo){
 		current_question = 1;
 		firstTime = true;
 		//get new question
 	} 
 	//if continue, set to current
-	else if (nextQuestion===false){
+	else if (nextquestion===false){
 		current_question = userGameInfo['current_question'];
 		current_question_id = userGameInfo['current_question_id'];
 	}
 	//if next question, set to + 1
 	else {
-		current_question = userGameInfo['current_question']+1
+		current_question = userGameInfo['current_question']+1;
+		// let finishedQuestion = userGameInfo['current_question_id'];
+		// const updateCompletedTable = `
+		// 	INSERT INTO completed (user_id, completed_question_id, type)
+		// 	VALUES (${user_id}, ${finishedQuestion}, 'multi')
+		// `
+		// db.query(updateCompletedTable)
 	}
 
 	//check if the next question need to be an algo or multi type of question
 	let curr_type;
 	let difficulty;
 	
-	if (current_question <=8) {
+	if (current_question <=9) {
 		curr_type = 'multi';
 		difficulty = 1;
 	}
@@ -77,6 +88,7 @@ getQuestion.nextQ = async (req, res, next) => {
 			res.locals.question = questionPicker(completedQuestions, questionList);
 			//update the database of current question table score
 			// console.log(current_question, res.locals.question.question_id)
+			console.log('UPDATE SCORE TABLE')
 			const updateScoreTable = `
 				UPDATE score
 				SET current_question = ${current_question}, current_question_id = ${res.locals.question.question_id}
@@ -87,6 +99,7 @@ getQuestion.nextQ = async (req, res, next) => {
 		//first time, need to create a score row
 		else {
 			res.locals.question = questionPicker(completedQuestions, questionList);
+			console.log('INSERT SCORE TABLE')
 			const newScoreRow = `
 				INSERT INTO score (user_id, current_question_id)
 				VALUES (${user_id}, ${res.locals.question.question_id})

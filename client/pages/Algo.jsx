@@ -1,8 +1,10 @@
 import React, { setState, useState } from 'react';
 import CodeEditor from '../components/CodeEditor.jsx';
 import QuestionBox from '../components/QuestionBox.jsx';
+import {useNavigate} from 'react-router-dom';
 
 const Algo = ({ score, setScore, stage, setStage, question, setQuestion }) => {
+    let navigate = useNavigate();
     const [code, setCode] = useState('');
 
     const onChange = (action, data) => {
@@ -18,7 +20,7 @@ const Algo = ({ score, setScore, stage, setStage, question, setQuestion }) => {
     }
 
     const handleSubmit = (e) => {
-        
+        setTimeout(navigate('/game-over'), 2000);
     }
 
     return(
