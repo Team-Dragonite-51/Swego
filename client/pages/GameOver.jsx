@@ -11,9 +11,9 @@ const GameOver = ({ score, setScore, stage, setStage }) => {
 
     return(
         <div>
-            GameOver Page
-            <h1>Your Final Score Was: {score} </h1>
-            <button onClick={handleClick}>Play Again?</button>
+            <h1 className='start-title'> Game Over</h1>
+            <h2 className='subtext'>Your Final Score Was: {score} </h2>
+            <button className="over-btn" onClick={handleClick}>Play Again?</button>
         </div>
     )
 };

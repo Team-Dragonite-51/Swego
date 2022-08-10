@@ -37,7 +37,6 @@ function App() {
 
     return(
         <div>
-            APP Page
             <Routes>
                 <Route path='/login' element={<Login/>}></Route>
                 <Route path='/start' element={<Start question={question} setQuestion={setQuestion} getQuestion={getQuestion}/>}></Route>

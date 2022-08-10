@@ -17,13 +17,18 @@ const Algo = ({ score, setScore, stage, setStage, question, setQuestion }) => {
         }
     }
 
+    const handleSubmit = (e) => {
+        
+    }
+
     return(
         <div>
-            <h1>Question: {stage}</h1>
+            <h1 className='quest-num'>Question: {stage}</h1>
             <QuestionBox question={question}/>
             <div id="code-editor-container">
                 <CodeEditor code={code} onChange={onChange}/>
             </div>
+            <button onClick={handleSubmit} className='submit-btn'>Submit Answer</button>
         </div>
     )
 };

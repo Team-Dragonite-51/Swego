@@ -56,12 +56,12 @@ const Start = ({ question, setQuestion, getQuestion }) => {
 
     return(
         <div id='start-page'>
-            <h1 id='start-title'>Welcome to SWEGO</h1>
+            <h1 className='start-title'>Welcome to SWEGO</h1>
             <div>
                 {/* <Link to='/question-mc'> */}
-                    <button onClick={handleStart}>Start New Game</button>
+                    <button onClick={handleStart} className="start-btn">Start New Game</button>
                     {/* </Link> */}
-                    <button onClick={testFunc}>TEST</button>
+                    {/* <button onClick={testFunc}>TEST</button> */}
             </div>
         </div>
     )

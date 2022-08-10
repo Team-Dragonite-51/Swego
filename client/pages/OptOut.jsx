@@ -24,11 +24,12 @@ const OptOut = ({ score, stage, question, setQuestion, getQuestion }) => {
 
     return(
         <div>
-            OptOut Page
-            <h1>"Do you want to take your money and go?"</h1>
-            <h3>Your Current Score: {score}</h3>
-            <button onClick={handleYes}>YES</button>
-            <button onClick={handleNo}>NO</button>
+            <h1 className='quest-num' id='opt-out'>Do you want to take your money and go?</h1>
+            <h3 className='subtext'>Your Current Score: {score}</h3>
+            <div className='opt-btn-cont'> 
+                <button className='opt-btn' onClick={handleYes}>YES</button>
+                <button className='opt-btn' onClick={handleNo}>NO</button>
+            </div>
         </div>
     )
 };
