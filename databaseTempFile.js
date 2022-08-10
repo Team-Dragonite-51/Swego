@@ -41,9 +41,8 @@ CREATE TABLE a_questions(
     difficulty          INT NOT NULL
 )
 
-INSERT INTO a_questions (question, test)
-VALUES ('who is the president', 'hello')
-
+INSERT INTO a_questions (question, test, difficulty)
+VALUES ('who is the president', 'hello', 1)
 */
 
 /*
@@ -53,8 +52,8 @@ CREATE TABLE completed(
     completed_question_id   INT NOT NULL,
     type                    choices NOT NULL
 )
-INSERT INTO completed (user_id, completed_question_id, type)
-VALUES (1, 1, 'algo')
+`INSERT INTO completed (user_id, completed_question_id, type)
+VALUES (1, 1, 'algo')`
 */
 
 
@@ -70,8 +69,8 @@ CREATE TABLE users(
 /*
 CREATE TABLE score(
     user_id                 INT PRIMARY KEY,
-    points                  INT NOT NULL,
-    current_question        INT NOT NULL DEFAULT 1
+    points                  INT DEFAULT 0,
+    current_question        INT DEFAULT 1,
     current_question_id     INT NOT NULL
 )
 */
