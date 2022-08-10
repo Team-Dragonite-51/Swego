@@ -3,8 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import {
     Routes,
     Route,
-    Link,
-    Navigate
+    Link
 } from 'react-router-dom'
 import Login from './pages/Login.jsx';
 import Start from './pages/Start.jsx';
@@ -44,13 +43,13 @@ function App() {
     return(
         <div>
             <Routes>
-                <Route exact path='/' element={<Login nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID} setUserID={setUserID}/>}></Route>
+                <Route path='/login' element={<Login nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID} setUserID={setUserID}/>}></Route>
                 <Route path='/start' element={<Start question={question} setQuestion={setQuestion} getQuestion={getQuestion} nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID}/>}></Route>
                 <Route path='/question-mc' element={<MultipleChoice score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID}/>}></Route>
                 <Route path='/question-a' element={<Algo score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID}/>}></Route>
                 <Route path='/opt-out' element={<OptOut score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} getQuestion={getQuestion} nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID}/>}></Route>
                 <Route path='/game-over' element={<GameOver score={score} setScore={setScore} stage={stage} setStage={setStage} userID={userID}/>}></Route>
-                <Route path='/signup' element={<SignUp />}></Route>
+                <Route path='/signup' element={<SignUp nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID} setUserID={setUserID}/>}></Route>
             </Routes>
         </div>
     )

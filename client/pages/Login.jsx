@@ -6,32 +6,27 @@ import SignUp from './SignUp.jsx';
 const Login = ( { nextQuestion, setNextQuestion }) => {
 
     const [username, setUsername] = useState('');
-    const [inputPassword, setPassword] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     function handleLogin(event) {
         event.preventDefault();
-        const body = { username, inputPassword };
+        const body = { username, password };
         console.log("LOGIN:", body);
-        fetch('http://localhost:3000/auth/login', {
+        fetch('/auth/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(body)
-        }).then((data) => {
-            console.log('res:', data);
-            return data.json();
-        })
-        .then((data) => {
-            console.log('entered last part')
+            body: (JSON.stringify(body))
+        }).then(data => data.json())
+        .then(data => {
             if (data === 11) {
-                console.log(data);
-                navigate('/start');
-            } else {
-                window.alert("The input is invalid")
+                
+                navigate('/start')
             }
-        }).catch((error) => console.log(error));
+            console.log(data);
+        })
     }
 
     return(
@@ -40,11 +35,11 @@ const Login = ( { nextQuestion, setNextQuestion }) => {
             <form>
                 <div className='login-input-cont'>
                     <input type="text" name="username" placeholder="Username" className="login-input" onChange={event => setUsername(event.target.value)} value={username}/>
-                    <input type="password" name="inputPassword" placeholder="Password" className="login-input" onChange={event => setPassword(event.target.value)} value={inputPassword}/>
+                    <input type="password" name="password" placeholder="Password" className="login-input" onChange={event => setPassword(event.target.value)} value={password}/>
                 </div>
                 <div className='login-btn-cont'>
                     <button onClick={handleLogin} className='login-btn'>Login</button>
-                    <Link to='/signup'><button className='login-btn'>Signup</button></Link>
+                    <Link to={SignUp}><button className='login-btn'>Signup</button></Link>
                 </div>
             </form>
         </div>
