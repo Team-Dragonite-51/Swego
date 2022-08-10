@@ -41,10 +41,10 @@ const MultipleChoice = ({ score, setScore, stage, setStage, question, setQuestio
             <h1>Question: {stage}</h1>
             <QuestionBox question={question}/>
             <div id='mc-question-answers'>
-                <button id='btn-a' className='answer-btn' onClick={handleMCAnswer}>{question.answerA}</button>
-                <button id='btn-b' className='answer-btn' onClick={handleMCAnswer}>{question.answerB}</button>
-                <button id='btn-c' className='answer-btn' onClick={handleMCAnswer}>{question.answerC}</button>
-                <button id='btn-d' className='answer-btn' onClick={handleMCAnswer}>{question.answerD}</button>
+                <button id='btn-a' className='answer-btn' onClick={handleMCAnswer}>{question.a}</button>
+                <button id='btn-b' className='answer-btn' onClick={handleMCAnswer}>{question.b}</button>
+                <button id='btn-c' className='answer-btn' onClick={handleMCAnswer}>{question.c}</button>
+                <button id='btn-d' className='answer-btn' onClick={handleMCAnswer}>{question.d}</button>
             <div/>
             <button onClick={handleSubmit} disabled={true} id='submit-mc-btn'>Submit Answer</button>
         </div>
