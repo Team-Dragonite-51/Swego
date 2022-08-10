@@ -6,10 +6,10 @@ const getQuestion = {};
 //middleware function to query db for next question
 getQuestion.nextQ = async (req, res, next) => {
 	//need to know the user_id
-	let user_id = 2;
-	let nextQuestion = false;
-	// const {user_id, nextQuestion} = req.headers
-
+	// let user_id = 2;
+	// let nextQuestion = false;
+	const {user_id, nextQuestion} = req.headers
+	console.log('userID', user_id, nextQuestion)
 
 	//query to get current question
 	const getCurrQ = `
@@ -36,7 +36,7 @@ getQuestion.nextQ = async (req, res, next) => {
 		}
 	}
 	//if first time, current_question = 1
-	console.log('userGameInfo', userGameInfo)
+	// console.log('userGameInfo', userGameInfo)
 	if (!userGameInfo){
 		current_question = 1;
 		firstTime = true;
@@ -76,7 +76,7 @@ getQuestion.nextQ = async (req, res, next) => {
 		if (!firstTime){
 			res.locals.question = questionPicker(completedQuestions, questionList);
 			//update the database of current question table score
-			console.log(current_question, res.locals.question.question_id)
+			// console.log(current_question, res.locals.question.question_id)
 			const updateScoreTable = `
 				UPDATE score
 				SET current_question = ${current_question}, current_question_id = ${res.locals.question.question_id}
@@ -102,17 +102,8 @@ getQuestion.nextQ = async (req, res, next) => {
 			}
 		}
 	}
-
-
-
-
-
-
 	return next();
 }
-
-
-
 
 
 //HELPER FUNCTIONS START HERE

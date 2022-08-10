@@ -17,14 +17,14 @@ function App() {
     const [score, setScore] = useState(0);
     const [stage, setStage] = useState(1);
     const [question, setQuestion] = useState('TEST QUESTION');
-    const [continuation, setContinuation] = useState(false);
+    const [nextQuestion, setNextQuestion] = useState(true);
     const [userID, setUserID] = useState(1);
 
-    async function getQuestion (userID, continuation) {
+    async function getQuestion (userID, nextQ) {
         const header = {};
         header.user_id = userID;
-        // if continuation true, then next question false
-        header.nextQuestion = !continuation;
+        // if nextQuestion true, then next question false
+        header.nextQuestion = nextQ;
         try{
             // await fetch from db
             let res = await fetch('http://localhost:3000/getQuestion', {
@@ -44,13 +44,13 @@ function App() {
         <div>
             APP Page
             <Routes>
-                <Route path='/login' element={<Login continuation={continuation} setContinuation={setContinuation} userID={userID} setUserID={setUserID}/>}></Route>
-                <Route path='/start' element={<Start question={question} setQuestion={setQuestion} getQuestion={getQuestion} continuation={continuation} setContinuation={setContinuation} userID={userID}/>}></Route>
-                <Route path='/question-mc' element={<MultipleChoice score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} continuation={continuation} setContinuation={setContinuation} userID={userID}/>}></Route>
-                <Route path='/question-a' element={<Algo score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} continuation={continuation} setContinuation={setContinuation} userID={userID}/>}></Route>
-                <Route path='/opt-out' element={<OptOut score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} getQuestion={getQuestion} continuation={continuation} setContinuation={setContinuation} userID={userID}/>}></Route>
+                <Route path='/login' element={<Login nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID} setUserID={setUserID}/>}></Route>
+                <Route path='/start' element={<Start question={question} setQuestion={setQuestion} getQuestion={getQuestion} nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID}/>}></Route>
+                <Route path='/question-mc' element={<MultipleChoice score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID}/>}></Route>
+                <Route path='/question-a' element={<Algo score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID}/>}></Route>
+                <Route path='/opt-out' element={<OptOut score={score} setScore={setScore} stage={stage} setStage={setStage} question={question} setQuestion={setQuestion} getQuestion={getQuestion} nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID}/>}></Route>
                 <Route path='/game-over' element={<GameOver score={score} setScore={setScore} stage={stage} setStage={setStage} userID={userID}/>}></Route>
-                <Route path='/signup' element={<SignUp continuation={continuation} setContinuation={setContinuation} userID={userID} setUserID={setUserID}/>}></Route>
+                <Route path='/signup' element={<SignUp nextQuestion={nextQuestion} setNextQuestion={setNextQuestion} userID={userID} setUserID={setUserID}/>}></Route>
             </Routes>
         </div>
     )
