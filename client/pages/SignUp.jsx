@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignUp = () => {
+const SignUp = ( { continuation, setContinuation } ) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
