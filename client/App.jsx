@@ -33,7 +33,6 @@ function App() {
             })
             // await json of res
             const data = await res.json();
-            console.log("data in getQuestion", data);
             return data;
         }
         catch(err){
