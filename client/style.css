@@ -187,6 +187,14 @@ body {
     font-size: 20px;
 }
 
+.signup-btn {
+    background: rgb(218, 165, 32);
+    margin: 10px;
+    padding: 5px;
+    color: rgb(156, 13, 13);
+    font-size: 20px;
+}
+
 .login-btn:hover {background-color: rgb(190, 13, 13)}
 
 .login-btn:active {
