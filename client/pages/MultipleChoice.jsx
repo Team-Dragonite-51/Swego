@@ -13,10 +13,12 @@ const MultipleChoice = ({ score, setScore, stage, setStage, question, setQuestio
         // loop through btns and reset colors
         const btns = document.getElementsByClassName('answer-btn');
         for(let i = 0; i < btns.length; i++){
-            btns[i].style.backgroundColor = "#D3D3D3"
+            btns[i].style.backgroundColor = "rgb(156, 13, 13)"
+            btns[i].style.color = "rgb(218, 165, 32)"
         }
         // update bg color of pressed btn
-        pressedBtn.style.backgroundColor = "#FFA500";
+        pressedBtn.style.backgroundColor = "rgb(218, 165, 32)";
+        pressedBtn.style.color = "rgb(156, 13, 13)"
         // enable the submit btn
         document.querySelector('#submit-mc-btn').disabled = false;
     }
@@ -38,16 +40,19 @@ const MultipleChoice = ({ score, setScore, stage, setStage, question, setQuestio
 
     return(
         <div id='mc-question-container'>
-            <h1>Question: {stage}</h1>
+            <h1 className='quest-num'>Question: {stage}</h1>
             <QuestionBox question={question}/>
-            <div id='mc-question-answers'>
-                <button id='btn-a' className='answer-btn' onClick={handleMCAnswer}>{question.a}</button>
+            <div className='mc-question-answers'>
+                {/* <button id='btn-a' className='answer-btn' onClick={handleMCAnswer}>{question.a}</button>
                 <button id='btn-b' className='answer-btn' onClick={handleMCAnswer}>{question.b}</button>
                 <button id='btn-c' className='answer-btn' onClick={handleMCAnswer}>{question.c}</button>
-                <button id='btn-d' className='answer-btn' onClick={handleMCAnswer}>{question.d}</button>
-            <div/>
-            <button onClick={handleSubmit} disabled={true} id='submit-mc-btn'>Submit Answer</button>
-        </div>
+                <button id='btn-d' className='answer-btn' onClick={handleMCAnswer}>{question.d}</button> */}
+                <button id='btn-a' className='answer-btn' onClick={handleMCAnswer}>ANSWER A</button>
+                <button id='btn-b' className='answer-btn' onClick={handleMCAnswer}>ANSWER B</button>
+                <button id='btn-c' className='answer-btn' onClick={handleMCAnswer}>ANSWER C</button>
+                <button id='btn-d' className='answer-btn' onClick={handleMCAnswer}>ANSWER D</button> 
+            </div>
+            <button onClick={handleSubmit} disabled={true} className='submit-btn'>Submit Answer</button>
         </div>
     )
 };

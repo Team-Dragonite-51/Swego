@@ -30,18 +30,17 @@ const Login = ( { nextQuestion, setNextQuestion }) => {
     }
 
     return(
-        <div>
+        <div id='login'>
+            <p className='start-title' align="center">Sign in</p>
             <form>
-                <label>
-                    Username:
-                    <input type="text" name="username" onChange={event => setUsername(event.target.value)} value={username}/>
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="password" onChange={event => setPassword(event.target.value)} value={password}/>
-                </label>
-                <button onClick={handleLogin}>Login</button>
-                <Link to={SignUp}><button>Signup</button></Link>
+                <div className='login-input-cont'>
+                    <input type="text" name="username" placeholder="Username" className="login-input" onChange={event => setUsername(event.target.value)} value={username}/>
+                    <input type="password" name="password" placeholder="Password" className="login-input" onChange={event => setPassword(event.target.value)} value={password}/>
+                </div>
+                <div className='login-btn-cont'>
+                    <button onClick={handleLogin} className='login-btn'>Login</button>
+                    <Link to={SignUp}><button className='login-btn'>Signup</button></Link>
+                </div>
             </form>
         </div>
     )

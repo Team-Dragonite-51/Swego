@@ -12,10 +12,10 @@ const CodeEditor = ({onChange, code}) => {
     };
 
     return(
-        <div>
+        <div id='code-editor'>
             <Editor
-                height="300px"
-                width={`80%`}
+                height="220px"
+                width={`100%`}
                 language={"javascript"}
                 value={value}
                 defaultValue="// Enter Your Code Here"
