@@ -17,18 +17,18 @@ const OptOut = ({ score, stage, question, setQuestion, getQuestion, userID, next
         getQuestion(userID, nextQuestion).then(data => setQuestion(data));;
         console.log("question", question);
         console.log("stage:", stage);
-        if (stage === 3 || stage === 7 || stage === 10) {
+        if (stage === 10) {
             navigate('/question-a');
         } else navigate('/question-mc')
     }
 
     return(
         <div>
-            <h1 className='quest-num' id='opt-out'>Do you want to take your money and go?</h1>
+            <h1 className='quest-num' id='opt-out'>Congradulations! Do you want to take your money and go?</h1>
             <h3 className='subtext'>Your Current Score: {score}</h3>
             <div className='opt-btn-cont'> 
-                <button className='opt-btn' onClick={handleYes}>YES</button>
-                <button className='opt-btn' onClick={handleNo}>NO</button>
+                <button className='opt-btn' onClick={handleYes}>Take Money and Run!</button>
+                <button className='opt-btn' onClick={handleNo}>Continue and Risk it All!</button>
             </div>
         </div>
     )

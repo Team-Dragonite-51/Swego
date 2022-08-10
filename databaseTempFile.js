@@ -36,19 +36,19 @@ VALUES ('what is team name', 1, 'charzard', 'dragonite', 'mewtwo', 'pikachu', 'd
 /*
 CREATE TABLE a_questions(
     question_id         SERIAL PRIMARY KEY,       
-    question            VARCHAR NOT NULL,
+    question_text       VARCHAR NOT NULL,
     test                VARCHAR NOT NULL,
     difficulty          INT NOT NULL
 )
 
-INSERT INTO a_questions (question, test, difficulty)
+INSERT INTO a_questions (question_tex, test, difficulty)
 VALUES ('who is the president', 'hello', 1)
 */
 
 /*
 CREATE TYPE choices AS ENUM('multi', 'algo')
 CREATE TABLE completed(
-    user_id                 SERIAL PRIMARY KEY,
+    user_id                  INT NOT NULL,
     completed_question_id   INT NOT NULL,
     type                    choices NOT NULL
 )
@@ -74,3 +74,12 @@ CREATE TABLE score(
     current_question_id     INT NOT NULL
 )
 */
+// // Which question would not lead to an error?
+// //
+//  `'"'"'${''}"'"{}"'${"'"} ${"''"}"`
+//  //
+//  '"'"'${''}"'"{}"'${"'"} ${"''"}"`
+//  //
+//  `''"'"'${''}"'"{}"'${"'"} ${"''"}"
+//  //
+//  `''"`"'${''}"'"{}"'${"'"} ${"''"}"`
