@@ -6,80 +6,164 @@ const getQuestion = {};
 //middleware function to query db for next question
 getQuestion.nextQ = async (req, res, next) => {
 	//need to know the user_id
-	//need to know the current question
-	await console.log('in the nextQ middleware function')
-	let user_id = 1;
-	let current_question = 6;
+	// let user_id = 2;
+	// let nextQuestion = false;
+	const {user_id, nextQuestion} = req.headers
+	console.log('userID', user_id, nextQuestion)
+
+	//query to get current question
+	const getCurrQ = `
+		SELECT * FROM score WHERE user_id=${user_id}
+	`
+	let userGameInfo;
+	let scoreTable;
+	let current_question_id;
+	let current_question;
+	let firstTime = false;
+	await db.query(getCurrQ)
+		.then (data=>{
+			scoreTable = data.rows
+		})
+	
+	//checking if this is a first time user
+	if (scoreTable[0]){
+		for (let i=0; i<scoreTable.length; i++){
+			console.log(scoreTable[i])
+			if (scoreTable[i]['user_id']===user_id){
+				userGameInfo = scoreTable[i];
+				i = scoreTable.length;
+			}
+		}
+	}
+	//if first time, current_question = 1
+	// console.log('userGameInfo', userGameInfo)
+	if (!userGameInfo){
+		current_question = 1;
+		firstTime = true;
+		//get new question
+	} 
+	//if continue, set to current
+	else if (nextQuestion===false){
+		current_question = userGameInfo['current_question'];
+		current_question_id = userGameInfo['current_question_id'];
+	}
+	//if next question, set to + 1
+	else {
+		current_question = userGameInfo['current_question']+1
+	}
 
 	//check if the next question need to be an algo or multi type of question
 	let curr_type;
-	//1-2 = easy multi choice 3 easy algo 4-6 is medium mc, 7 medium algo, 8-9 hard mc. 10 hard algo. 
-	if (current_question>5) {
+	let difficulty;
+	
+	if (current_question <=8) {
 		curr_type = 'multi';
+		difficulty = 1;
 	}
 	else {
-		curr_type = 'algo';
+		curr_type = 'algo'
 	}
 
 	//query to get a list of questions that user has already completed
-	const getList = `
-		SELECT user_id, completed_question_id, type FROM completed WHERE type='${curr_type}'
-	`
-	let completedQuestions;
-	console.log(getList);
-	await db.query(getList)
-		.then (data => {
-			completedQuestions = data.rows;
-		})
+
+	let completedQuestions = await getCompletedQuestions(curr_type)
 	
 	//query to get a list of the algo or multi questions
-	let questionList;
-		//get all algo type questions
-		if (curr_type==='algo'){
-			const getAlgoQuery = `
-				SELECT * FROM a_questions
+	//get all available questions based on type and difficulty
+	const questionList = curr_type==='algo'? await getAlgoQuestions(difficulty): await getMultiQuestions(difficulty)
+	// console.log('questionList', questionList)
+	if (!current_question_id){
+		if (!firstTime){
+			res.locals.question = questionPicker(completedQuestions, questionList);
+			//update the database of current question table score
+			// console.log(current_question, res.locals.question.question_id)
+			const updateScoreTable = `
+				UPDATE score
+				SET current_question = ${current_question}, current_question_id = ${res.locals.question.question_id}
+				WHERE user_id = ${user_id}
 			`
-			await db.query(getAlgoQuery)
-				.then (data => {
-					questionList = data.rows;
-				})
+			db.query(updateScoreTable);
 		}
-		//get all multiple choice type questions
+		//first time, need to create a score row
 		else {
-			const getMultiQuery = `
-				SELECT * FROM mc_questions
+			res.locals.question = questionPicker(completedQuestions, questionList);
+			const newScoreRow = `
+				INSERT INTO score (user_id, current_question_id)
+				VALUES (${user_id}, ${res.locals.question.question_id})
 			`
-			await db.query(getMultiQuery)
-				.then (data => {
-					questionList = data.rows
-				})
+			db.query(newScoreRow)
 		}
-
-		console.log('questionList', questionList)
-		console.log('completedQuestions',completedQuestions)
-		res.locals.question = questionPicker(completedQuestions, questionList);
-		console.log('res.locals.question', res.locals.question)
-		return next();
+	}
+	else {
+		for (let i=0; i<questionList.length; i++){
+			if (questionList[i]['question_id'] === current_question_id){
+				res.locals.question = questionList[i]
+				i = questionList.length
+			}
+		}
+	}
+	return next();
 }
+
+
+//HELPER FUNCTIONS START HERE
+
+async function getAlgoQuestions(difficulty){
+	const getAlgoQuery = `
+		SELECT * FROM a_questions
+		`;
+	let list
+	await db.query(getAlgoQuery)
+		.then (data => {
+			list = data.rows;
+		})
+	return list;
+}
+
+async function getMultiQuestions(difficulty){
+	const getMultiQuery = `
+		SELECT * FROM mc_questions 
+	`
+	let list;
+	await db.query(getMultiQuery)
+		.then (data => {
+			list = data.rows
+		})
+	return list;
+}
+
+async function getCompletedQuestions(curr_type){
+	const getList = `
+	SELECT user_id, completed_question_id, type FROM completed WHERE type='${curr_type}'
+	`
+	let list;
+	await db.query(getList)
+		.then (data => {
+			list = data.rows;
+		})
+	return list;
+}
+
 
 //algo for randomly pick a question;
 function questionPicker(completedQuestions, questionList){
 	// compare completedQuestions at index at key completed_question_id
 	//with questionList at index at key question_id
-	
+	// console.log(completedQuestions)
+	// console.log(questionList)
 	const completedIDs = {}
 	for (const question of completedQuestions){
 		completedIDs[question.completed_question_id] = true;
 	}
-	console.log('completedIDs', completedIDs)
+	// console.log('completedIDs', completedIDs)
 	const selections = []
 	for (const question of questionList){
 		if (!completedIDs[question.question_id]) selections.push(question)
 	}
-	console.log('selections', selections)
+	// console.log('selections', selections)
 
 	let index = Math.floor(Math.random()*selections.length)
-	console.log('index', index)
+	// console.log('index', index)
 
 	if (!selections[index]) return 'We are out of questions'
 	return selections[index];

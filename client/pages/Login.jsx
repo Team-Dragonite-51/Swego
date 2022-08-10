@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import SignUp from './SignUp.jsx';
 
-const Login = ( { continuation, setContinuation }) => {
+const Login = ( { nextQuestion, setNextQuestion }) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

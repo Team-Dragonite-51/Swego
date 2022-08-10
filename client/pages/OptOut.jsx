@@ -2,7 +2,7 @@ import React from 'react';
 import QuestionBox from '../components/QuestionBox.jsx';
 import { useNavigate } from 'react-router-dom';
 
-const OptOut = ({ score, stage, question, setQuestion, getQuestion, userID, continutation }) => {
+const OptOut = ({ score, stage, question, setQuestion, getQuestion, userID, nextQuestion }) => {
     const navigate = useNavigate();
 
     function handleYes() {
@@ -14,7 +14,7 @@ const OptOut = ({ score, stage, question, setQuestion, getQuestion, userID, cont
     function handleNo() {
         // stage already up to date
         // getting new question dependent on stage
-        getQuestion(userID, continutation).then(data => setQuestion(data));;
+        getQuestion(userID, nextQuestion).then(data => setQuestion(data));;
         console.log("question", question);
         console.log("stage:", stage);
         if (stage === 3 || stage === 7 || stage === 10) {

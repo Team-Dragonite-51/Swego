@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom'
 
-const Start = ({ question, setQuestion, getQuestion, userID, continutation }) => {
+const Start = ({ question, setQuestion, getQuestion, userID, nextQuestion }) => {
     let navigate = useNavigate();
     // when user clicks start, fetch first question from the db
     const handleStart = (e) => {
@@ -25,7 +25,7 @@ const Start = ({ question, setQuestion, getQuestion, userID, continutation }) =>
         // }
 
         // new function passed down as a prop from App to get a question
-        getQuestion(userID, continutation).then(data => {
+        getQuestion(userID, nextQuestion).then(data => {
             console.log("data in start:", data);
             setQuestion(data)
         }).then(() => navigate('/question-mc'));
