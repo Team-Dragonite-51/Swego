@@ -42,7 +42,6 @@ function App() {
 
     return(
         <div>
-            APP Page
             <Routes>
                 <Route path='/login' element={<Login continuation={continuation} setContinuation={setContinuation} userID={userID} setUserID={setUserID}/>}></Route>
                 <Route path='/start' element={<Start question={question} setQuestion={setQuestion} getQuestion={getQuestion} continuation={continuation} setContinuation={setContinuation} userID={userID}/>}></Route>
