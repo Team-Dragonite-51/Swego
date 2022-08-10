@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const app = express();
+const app = express()
 const PORT = 3000
 
 app.use(express.json()) // built in middleware parsing incoming JSON requests and puts parsed data in req.body
@@ -10,7 +10,7 @@ app.use(cors());
 const getQuestion = require ('./controllers/getQuestion');
 const authR = require('./routers/authenticationRouter');
 
-app.use(express.static(path.resolve(__dirname, '../dist/')));
+app.use(express.static(path.resolve(__dirname, "../dist/bundle.js")))
 
 
 app.get('/getQuestion', getQuestion.nextQ, (req, res) => {
