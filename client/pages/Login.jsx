@@ -6,27 +6,32 @@ import SignUp from './SignUp.jsx';
 const Login = ( { nextQuestion, setNextQuestion }) => {
 
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [inputPassword, setPassword] = useState('');
     const navigate = useNavigate();
 
     function handleLogin(event) {
         event.preventDefault();
-        const body = { username, password };
+        const body = { username, inputPassword };
         console.log("LOGIN:", body);
-        fetch('/auth/login', {
+        fetch('http://localhost:3000/auth/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: (JSON.stringify(body))
-        }).then(data => data.json())
-        .then(data => {
-            if (data === 11) {
-                
-                navigate('/start')
-            }
-            console.log(data);
+            body: JSON.stringify(body)
+        }).then((data) => {
+            console.log('res:', data);
+            return data.json();
         })
+        .then((data) => {
+            console.log('entered last part')
+            if (data === 11) {
+                console.log(data);
+                navigate('/start');
+            } else {
+                window.alert("The input is invalid")
+            }
+        }).catch((error) => console.log(error));
     }
 
     return(
@@ -35,11 +40,11 @@ const Login = ( { nextQuestion, setNextQuestion }) => {
             <form>
                 <div className='login-input-cont'>
                     <input type="text" name="username" placeholder="Username" className="login-input" onChange={event => setUsername(event.target.value)} value={username}/>
-                    <input type="password" name="password" placeholder="Password" className="login-input" onChange={event => setPassword(event.target.value)} value={password}/>
+                    <input type="password" name="inputPassword" placeholder="Password" className="login-input" onChange={event => setPassword(event.target.value)} value={inputPassword}/>
                 </div>
                 <div className='login-btn-cont'>
                     <button onClick={handleLogin} className='login-btn'>Login</button>
-                    <Link to={SignUp}><button className='login-btn'>Signup</button></Link>
+                    <Link to='/signup'><button className='login-btn'>Signup</button></Link>
                 </div>
             </form>
         </div>
