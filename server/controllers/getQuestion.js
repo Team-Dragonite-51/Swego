@@ -55,12 +55,12 @@ getQuestion.nextQ = async (req, res, next) => {
 	//if next question, set to + 1
 	else {
 		current_question = userGameInfo['current_question']+1;
-		// let finishedQuestion = userGameInfo['current_question_id'];
-		// const updateCompletedTable = `
-		// 	INSERT INTO completed (user_id, completed_question_id, type)
-		// 	VALUES (${user_id}, ${finishedQuestion}, 'multi')
-		// `
-		// db.query(updateCompletedTable)
+		let finishedQuestion = userGameInfo['current_question_id'];
+		const updateCompletedTable = `
+			INSERT INTO completed (user_id, completed_question_id, type)
+			VALUES (${user_id}, ${finishedQuestion}, 'multi')
+		`
+		db.query(updateCompletedTable)
 	}
 
 	//check if the next question need to be an algo or multi type of question
